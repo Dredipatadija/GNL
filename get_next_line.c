@@ -35,7 +35,7 @@ static char	*ft_read(int fd,char *totalbuf)
 	return (totalbuf);
 }
 
-char	*ft_newline(char *buffer)
+static char	*ft_newline(char *buffer)
 {
 	char	*line;
 	int		i;
@@ -56,7 +56,7 @@ char	*ft_newline(char *buffer)
 	return (line);
 }
 
-char	*ft_nextbuf(char *buffer)
+static char	*ft_nextbuf(char *buffer)
 {
 	int		i;
 	int		len;
