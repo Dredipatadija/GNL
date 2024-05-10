@@ -39,15 +39,38 @@ static char	*ft_read(int fd,char *totalbuf)
 	return (totalbuf);
 }
 
+char	*ft_newline(char *buffer)
+{
+	char	*line;
+	int		i;
+	int		len;
+
+	len = 0;
+	i = 0;
+	while (buffer[len] != '\0' && buffer[len] != '\n')
+		len++;
+	if (buffer[len] != 0 && buffer[len] == '\n')
+	{
+		line = ft_calloc(len + 2, sizeof(char));
+		line[len + 1] = '\n';
+	}
+	else 
+		line = ft_calloc(len + 1, sizeof(char));
+	line = ft_memmove(line, buffer, len - 1);
+	return (line);
+}
+
 char	*get_next_line(int fd)
 {
 	static char	*buffer;
+	char		*oneline;
 
 	if (fd < 0 || BUFFER_SIZE < 1)
 		return (NULL);
 	buffer = ft_read(fd, buffer);
 	if (!buffer)
 		return (NULL);
+	oneline = ft_newline(buffer);
 	return (buffer);
 }
 
