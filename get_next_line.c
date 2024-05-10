@@ -10,11 +10,7 @@ static char	*ft_read(int fd,char *totalbuf)
 	char	*tmp;
 	int	nread;
 
-	if (!tmp)
-	{
-		tmp = ft_calloc(1, 1);
-		tmp[0] = '\0';
-	}
+	tmp = ft_calloc(1, 1);
 	cpybuf = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
 	if (!cpybuf)
 		return (NULL);
@@ -56,8 +52,34 @@ char	*ft_newline(char *buffer)
 	}
 	else 
 		line = ft_calloc(len + 1, sizeof(char));
-	line = ft_memmove(line, buffer, len - 1);
+	line = ft_memmove(line, buffer, len);
 	return (line);
+}
+
+char	*ft_nextbuf(char *buffer)
+{
+	int		i;
+	int		len;
+	char	*nextb;
+	
+	i = 0;
+	len = 0;
+	while (buffer[len] != '\0' && buffer[len] != '\n')
+		len++;
+	if (buffer[len] == '\0')
+	{
+		free(buffer);
+		return (NULL);
+	}
+	nextb = ft_calloc((ft_strlen(buffer) - len + 1), sizeof(char));
+	if (!nextb)
+	{
+		free(buffer);
+		return (NULL);
+	}
+	nextb = ft_memmove(nextb, &buffer[len + 1], (ft_strlen(buffer) - len));
+	free(buffer);
+	return (nextb);
 }
 
 char	*get_next_line(int fd)
@@ -71,7 +93,8 @@ char	*get_next_line(int fd)
 	if (!buffer)
 		return (NULL);
 	oneline = ft_newline(buffer);
-	return (buffer);
+	buffer = ft_nextbuf(buffer);
+	return (oneline);
 }
 
 /*int	main(void)
