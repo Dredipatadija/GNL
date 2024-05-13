@@ -14,5 +14,6 @@ void	*ft_calloc(size_t count, size_t size);
 size_t	ft_strlen(const char *s);
 char    *ft_strdup(const char *s1);
 char    *ft_strjoin(char const *s1, char const *s2);
+void    *ft_memmove(void *dst, const void *src, size_t len);
 
 #endif

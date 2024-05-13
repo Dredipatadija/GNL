@@ -1,7 +1,5 @@
+#include "get_next_line.h"
 #include <stdio.h>
-#include <stddef.h>
-#include <unistd.h>
-#include <stdlib.h>
 #include <fcntl.h>
 
 static char	*ft_read(int fd,char *totalbuf)
@@ -97,13 +95,22 @@ char	*get_next_line(int fd)
 	return (oneline);
 }
 
-/*int	main(void)
+int main()
 {
-	int	fd;
-	char	*buffer;
+    int     fd;
+    char    *line;
 
-	fd = open("prueba.txt", O_RDONLY);
-	while ((buffer = get_next_line(fd)) != NULL)
-		printf("%s\n", buffer);
-	return (0);
-}*/
+    fd = open("prueba.txt", O_RDONLY);
+    if (fd == -1)
+    {
+        perror("Error al abrir el archivo");
+        return (1);
+    }
+    while ((line = get_next_line(fd)) != NULL)
+    {
+        printf("%s\n", line);
+        free(line);
+    }
+    close(fd);
+    return (0);
+}
