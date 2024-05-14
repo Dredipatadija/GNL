@@ -6,7 +6,7 @@
 /*   By: arenilla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 17:24:23 by arenilla          #+#    #+#             */
-/*   Updated: 2024/05/14 18:20:06 by arenilla         ###   ########.fr       */
+/*   Updated: 2024/05/14 18:38:49 by arenilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static char	*ft_newline(char *buffer)
 	int		i;
 
 	i = 0;
-	if (!buffer)
+	if (!buffer[i])
 		return (NULL);
 	while (buffer[i] != '\0' && buffer[i] != '\n')
 		i++;
