@@ -1,14 +1,52 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: arenilla <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/14 17:24:23 by arenilla          #+#    #+#             */
+/*   Updated: 2024/05/14 18:20:06 by arenilla         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 #include <stdio.h>
 #include <fcntl.h>
 
-static char	*ft_read(int fd,char *totalbuf)
+void	*ft_memmove(void *dst, const void *src, size_t len)
+{
+	size_t				i;
+	unsigned char		*bytedst;
+	const unsigned char	*bytesrc;
+
+	bytedst = dst;
+	bytesrc = src;
+	i = 0;
+	if (!dst && !src)
+		return (0);
+	while (i < len)
+	{
+		if (dst >= src)
+		{
+			bytedst[len - 1] = bytesrc[len - 1];
+			len--;
+		}
+		if (dst < src)
+		{
+			bytedst[i] = bytesrc[i];
+			i++;
+		}
+	}
+	dst = bytedst;
+	return (dst);
+}
+
+static char	*ft_read(int fd, char *totalbuf)
 {
 	char	*cpybuf;
-	char	*tmp;
-	int	nread;
+	int		nread;
 
-	tmp = ft_calloc(1, 1);
 	cpybuf = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
 	if (!cpybuf)
 		return (NULL);
@@ -19,17 +57,14 @@ static char	*ft_read(int fd,char *totalbuf)
 		if (nread == -1)
 		{
 			free(cpybuf);
-			if (tmp)
-				free(tmp);
 			return (NULL);
 		}
 		cpybuf[nread] = '\0';
-		totalbuf = ft_strjoin(tmp, cpybuf);
-		free(cpybuf);
-		free(tmp);
-		tmp = ft_strdup(totalbuf);
+		totalbuf = ft_strjoin(totalbuf, cpybuf);
+		if (ft_strchr(totalbuf, '\n'))
+			break ;
 	}
-	free(tmp);
+	free(cpybuf);
 	return (totalbuf);
 }
 
@@ -37,20 +72,16 @@ static char	*ft_newline(char *buffer)
 {
 	char	*line;
 	int		i;
-	int		len;
 
-	len = 0;
 	i = 0;
-	while (buffer[len] != '\0' && buffer[len] != '\n')
-		len++;
-	if (buffer[len] != 0 && buffer[len] == '\n')
-	{
-		line = ft_calloc(len + 2, sizeof(char));
-		line[len + 1] = '\n';
-	}
-	else 
-		line = ft_calloc(len + 1, sizeof(char));
-	line = ft_memmove(line, buffer, len);
+	if (!buffer)
+		return (NULL);
+	while (buffer[i] != '\0' && buffer[i] != '\n')
+		i++;
+	line = ft_calloc(i + 1, sizeof(char));
+	line = ft_memmove(line, buffer, i);
+	if (buffer[i] != '\0' && buffer[i] == '\n')
+		line = ft_strjoin(line, "\n");
 	return (line);
 }
 
@@ -59,7 +90,7 @@ static char	*ft_nextbuf(char *buffer)
 	int		i;
 	int		len;
 	char	*nextb;
-	
+
 	i = 0;
 	len = 0;
 	while (buffer[len] != '\0' && buffer[len] != '\n')
@@ -75,7 +106,10 @@ static char	*ft_nextbuf(char *buffer)
 		free(buffer);
 		return (NULL);
 	}
-	nextb = ft_memmove(nextb, &buffer[len + 1], (ft_strlen(buffer) - len));
+	len++;
+//	while (buffer[len] != '\0')
+//		nextb[i++] = buffer[len++];
+	nextb = ft_memmove(nextb, &buffer[len], (ft_strlen(buffer) - len));
 	free(buffer);
 	return (nextb);
 }
@@ -87,6 +121,12 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE < 1)
 		return (NULL);
+	if (!buffer)
+	{
+		buffer = ft_calloc(1, 1);
+		if (!buffer)
+			return (NULL);
+	}
 	buffer = ft_read(fd, buffer);
 	if (!buffer)
 		return (NULL);
@@ -103,12 +143,12 @@ int main()
     fd = open("prueba.txt", O_RDONLY);
     if (fd == -1)
     {
-        perror("Error al abrir el archivo");
+        printf("Error al abrir el archivo");
         return (1);
     }
     while ((line = get_next_line(fd)) != NULL)
     {
-        printf("%s\n", line);
+        printf("%s", line);
         free(line);
     }
     close(fd);

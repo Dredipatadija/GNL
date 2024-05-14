@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: arenilla <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/14 17:24:36 by arenilla          #+#    #+#             */
+/*   Updated: 2024/05/14 17:33:29 by arenilla         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 
 void	*ft_calloc(size_t count, size_t size)
@@ -17,33 +29,25 @@ void	*ft_calloc(size_t count, size_t size)
 	return ((void *) array);
 }
 
-void	*ft_memmove(void *dst, const void *src, size_t len)
+char	*ft_strchr(const char *s, int c)
 {
-	size_t				i;
-	unsigned char		*bytedst;
-	const unsigned char	*bytesrc;
+	int		i;
+	char	character;
 
-	bytedst = dst;
-	bytesrc = src;
+	character = c;
 	i = 0;
-	if (!dst && !src)
-		return (0);
-	while (i < len)
+	while (s[i] != '\0')
 	{
-		if (dst >= src)
-		{
-			bytedst[len - 1] = bytesrc[len - 1];
-			len--;
-		}
-		if (dst < src)
-		{
-			bytedst[i] = bytesrc[i];
+		if (character == s[i])
+			return ((char *)(&s[i]));
+		else
 			i++;
-		}
 	}
-	dst = bytedst;
-	return (dst);
+	if (character == '\0')
+		return ((char *)(&s[i]));
+	return (0);
 }
+
 
 size_t	ft_strlen(const char *s)
 {
