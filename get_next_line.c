@@ -6,7 +6,7 @@
 /*   By: arenilla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 17:24:23 by arenilla          #+#    #+#             */
-/*   Updated: 2024/05/14 18:38:49 by arenilla         ###   ########.fr       */
+/*   Updated: 2024/05/14 19:23:03 by arenilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,8 +107,6 @@ static char	*ft_nextbuf(char *buffer)
 		return (NULL);
 	}
 	len++;
-//	while (buffer[len] != '\0')
-//		nextb[i++] = buffer[len++];
 	nextb = ft_memmove(nextb, &buffer[len], (ft_strlen(buffer) - len));
 	free(buffer);
 	return (nextb);
@@ -140,17 +138,29 @@ int main()
     int     fd;
     char    *line;
 
+//reading from file
     fd = open("prueba.txt", O_RDONLY);
-    if (fd == -1)
-    {
-        printf("Error al abrir el archivo");
-        return (1);
-    }
-    while ((line = get_next_line(fd)) != NULL)
+    line = get_next_line(fd);
+    if (line == NULL)
+	printf("(null)");
+    while (line != NULL)
     {
         printf("%s", line);
         free(line);
+    	line = get_next_line(fd);
     }
+    free(line);
     close(fd);
+//reading from stdin
+/*    line = get_next_line(0);
+    if (line == NULL)
+	printf("(null)");
+    while (line != NULL)
+    {
+	printf("%s", line);
+        free(line);
+    	line = get_next_line(0);
+    }
+    free(line);*/
     return (0);
 }
