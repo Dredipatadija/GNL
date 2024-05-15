@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arenilla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 17:24:23 by arenilla          #+#    #+#             */
-/*   Updated: 2024/05/15 11:11:48 by arenilla         ###   ########.fr       */
+/*   Updated: 2024/05/15 11:12:36 by arenilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 #include <stdio.h>
 #include <fcntl.h>
 
@@ -113,56 +113,57 @@ static char	*ft_nextbuf(char *buffer)
 
 char	*get_next_line(int fd)
 {
-	static char	*buffer;
+	static char	*buffer[MAXFD];
 	char		*oneline;
 
-	if (fd < 0 || BUFFER_SIZE < 1)
+	if (fd < 0 || BUFFER_SIZE < 1 || fd >= MAXFD)
 		return (NULL);
-	if (!buffer)
+	if (!buffer[fd])
 	{
-		buffer = ft_calloc(1, 1);
-		if (!buffer)
+		buffer[fd] = ft_calloc(1, 1);
+		if (!buffer[fd])
 			return (NULL);
 	}
-	buffer = ft_read(fd, buffer);
-	if (!buffer)
+	buffer[fd] = ft_read(fd, buffer[fd]);
+	if (!buffer[fd])
 		return (NULL);
-	oneline = ft_newline(buffer);
-	buffer = ft_nextbuf(buffer);
+	oneline = ft_newline(buffer[fd]);
+	buffer[fd] = ft_nextbuf(buffer[fd]);
 	return (oneline);
 }
 
 /*int main()
 {
-    int		fd;
-    char	*line;
+    int		fd1;
+    int		fd2;
+    int		fd3;
+    char	*file1;
+    char	*file2;
+    char	*file3;
 
-//reading from file
-    fd = open("prueba.txt", O_RDONLY);
-    line = get_next_line(fd);
-    if (line == NULL)
+//reading some fd
+    fd1 = open("prueba.txt", O_RDONLY);
+    fd2 = open("prueba2.txt", O_RDONLY);
+    fd3 = open("prueba3.txt", O_RDONLY);
+    file1 = get_next_line(fd1);
+    file2 = get_next_line(fd2);
+    file3 = get_next_line(fd3);
+    if (!file1 || !file2 || !file3)
 	printf("(null)");
-    while (line != NULL)
-    {
-        printf("%s", line);
-        free(line);
-    	line = get_next_line(fd);
+    while (file1 != NULL && file2 != NULL && file3 != NULL)
+    {  
+    	printf("%s", file1);
+    	printf("%s", file2);
+    	printf("%s", file3);
+        file1 = get_next_line(fd1);
+    	file2 = get_next_line(fd2);
+    	file3 = get_next_line(fd3);
     }
-    if (line)
-	free(line);
-    close(fd);
-//reading from stdin
-    fd = 0;
-    line = get_next_line(fd);
-    if (line == NULL)
-	printf("(null)");
-    while (line != NULL)
-    {
-	printf("%s", line);
-        free(line);
-    	line = get_next_line(0);
-    }
-    if (line)
-	free(line);
+    free(file1);
+    free(file2);
+    free(file3);
+    close(fd1);
+    close(fd2);
+    close(fd3);
     return (0);
 }*/

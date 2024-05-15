@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arenilla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 17:24:29 by arenilla          #+#    #+#             */
-/*   Updated: 2024/05/15 10:10:40 by arenilla         ###   ########.fr       */
+/*   Updated: 2024/05/15 11:05:00 by arenilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 
 # include <stdlib.h>
 # include <unistd.h>
@@ -19,6 +19,10 @@
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 3
+# endif
+
+# ifndef MAXFD
+#  define MAXFD 1024
 # endif
 
 char	*get_next_line(int fd);
