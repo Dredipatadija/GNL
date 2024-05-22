@@ -6,7 +6,7 @@
 /*   By: arenilla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 17:24:23 by arenilla          #+#    #+#             */
-/*   Updated: 2024/05/22 12:13:44 by arenilla         ###   ########.fr       */
+/*   Updated: 2024/05/22 17:29:55 by arenilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ char	*get_next_line(int fd)
 	return (oneline);
 }
 
-int main()
+/*int main()
 {
     int		fd;
     char	*line;
@@ -149,7 +149,7 @@ int main()
     if (line)
 	free(line);
     close(fd);
-/*//reading from stdin
+//reading from stdin
     fd = 0;
     line = get_next_line(fd);
     if (line == NULL)
@@ -161,6 +161,6 @@ int main()
     	line = get_next_line(0);
     }
     if (line)
-	free(line);*/
+	free(line);
     return (0);
-}
+}*/
