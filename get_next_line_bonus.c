@@ -86,11 +86,9 @@ static char	*ft_newline(char *buffer)
 
 static char	*ft_nextbuf(char *buffer)
 {
-	int		i;
 	int		len;
 	char	*nextb;
 
-	i = 0;
 	len = 0;
 	while (buffer[len] != '\0' && buffer[len] != '\n')
 		len++;
@@ -132,7 +130,7 @@ char	*get_next_line(int fd)
 	return (oneline);
 }
 
-/*int main()
+int main()
 {
     int		fd1;
     int		fd2;
@@ -166,4 +164,4 @@ char	*get_next_line(int fd)
     close(fd2);
     close(fd3);
     return (0);
-}*/
+}

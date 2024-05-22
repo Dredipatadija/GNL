@@ -6,7 +6,7 @@
 /*   By: arenilla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 17:24:23 by arenilla          #+#    #+#             */
-/*   Updated: 2024/05/15 11:11:48 by arenilla         ###   ########.fr       */
+/*   Updated: 2024/05/22 12:13:44 by arenilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,11 +86,9 @@ static char	*ft_newline(char *buffer)
 
 static char	*ft_nextbuf(char *buffer)
 {
-	int		i;
 	int		len;
 	char	*nextb;
 
-	i = 0;
 	len = 0;
 	while (buffer[len] != '\0' && buffer[len] != '\n')
 		len++;
@@ -132,7 +130,7 @@ char	*get_next_line(int fd)
 	return (oneline);
 }
 
-/*int main()
+int main()
 {
     int		fd;
     char	*line;
@@ -151,7 +149,7 @@ char	*get_next_line(int fd)
     if (line)
 	free(line);
     close(fd);
-//reading from stdin
+/*//reading from stdin
     fd = 0;
     line = get_next_line(fd);
     if (line == NULL)
@@ -163,6 +161,6 @@ char	*get_next_line(int fd)
     	line = get_next_line(0);
     }
     if (line)
-	free(line);
+	free(line);*/
     return (0);
-}*/
+}
