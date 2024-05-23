@@ -128,8 +128,6 @@ char	*get_next_line(int fd)
 		return (NULL);
 	oneline = ft_newline(buffer);
 	buffer = ft_nextbuf(buffer);
-	if (buffer && *buffer == '\0')
-		free(buffer);
 	return (oneline);
 }
 
