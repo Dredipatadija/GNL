@@ -143,23 +143,37 @@ int main()
     fd1 = open("prueba.txt", O_RDONLY);
     fd2 = open("prueba2.txt", O_RDONLY);
     fd3 = open("prueba3.txt", O_RDONLY);
-    file1 = get_next_line(fd1);
-    file2 = get_next_line(fd2);
-    file3 = get_next_line(fd3);
-    if (!file1 || !file2 || !file3)
-	printf("(null)");
-    while (file1 != NULL && file2 != NULL && file3 != NULL)
-    {  
-    	printf("%s", file1);
-    	printf("%s", file2);
-    	printf("%s", file3);
+    while (1) 
+	{
         file1 = get_next_line(fd1);
-    	file2 = get_next_line(fd2);
-    	file3 = get_next_line(fd3);
+        file2 = get_next_line(fd2);
+        file3 = get_next_line(fd3);
+
+        if (file1 == NULL && file2 == NULL && file3 == NULL) {
+            break;
+        }
+
+        if (file1) {
+            printf("%s", file1);
+            free(file1);
+        } else {
+            printf("NULL\n");
+        }
+
+        if (file2) {
+            printf("%s", file2);
+            free(file2);
+        } else {
+            printf("NULL\n");
+        }
+
+        if (file3) {
+            printf("%s", file3);
+            free(file3);
+        } else {
+            printf("NULL\n");
+        }
     }
-    free(file1);
-    free(file2);
-    free(file3);
     close(fd1);
     close(fd2);
     close(fd3);
