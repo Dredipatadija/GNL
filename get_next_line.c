@@ -11,8 +11,9 @@
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-//#include <stdio.h>
-//#include <fcntl.h>
+#include <stdio.h>
+#include <fcntl.h>
+#include <stdlib.h>
 
 static void	*ft_memmove(void *dst, const void *src, size_t len)
 {
@@ -127,40 +128,32 @@ char	*get_next_line(int fd)
 		return (NULL);
 	oneline = ft_newline(buffer);
 	buffer = ft_nextbuf(buffer);
+	if (buffer && *buffer == '\0')
+		free(buffer);
 	return (oneline);
 }
 
-/*int main()
+int main()
 {
     int		fd;
     char	*line;
 
-//reading from file
+/*//reading from file
     fd = open("prueba.txt", O_RDONLY);
-    line = get_next_line(fd);
-    if (line == NULL)
-	printf("(null)");
-    while (line != NULL)
-    {
+    while (1)
+	{
+		line = get_next_line(fd);
         printf("%s", line);
+		if (!line)
+			break;
         free(line);
-    	line = get_next_line(fd);
     }
-    if (line)
-	free(line);
-    close(fd);
+    close(fd);*/
 //reading from stdin
     fd = 0;
-    line = get_next_line(fd);
-    if (line == NULL)
-	printf("(null)");
-    while (line != NULL)
-    {
+	line = get_next_line(fd);
 	printf("%s", line);
-        free(line);
-    	line = get_next_line(0);
-    }
-    if (line)
 	free(line);
+	system("leaks a.out");
     return (0);
-}*/
+}
