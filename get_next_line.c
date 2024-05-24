@@ -60,7 +60,7 @@ static char	*ft_read(int fd, char *totalbuf)
 			return (NULL);
 		}
 		cpybuf[nread] = '\0';
-		totalbuf = ft_strjoin(totalbuf, cpybuf);
+		totalbuf = ft_strjoin_gnl(totalbuf, cpybuf);
 		if (ft_strchr(totalbuf, '\n'))
 			break ;
 	}
@@ -81,7 +81,7 @@ static char	*ft_newline(char *buffer)
 	line = ft_calloc(i + 1, sizeof(char));
 	line = ft_memmove(line, buffer, i);
 	if (buffer[i] != '\0' && buffer[i] == '\n')
-		line = ft_strjoin(line, "\n");
+		line = ft_strjoin_gnl(line, "\n");
 	return (line);
 }
 
@@ -136,7 +136,6 @@ char	*get_next_line(int fd)
     int		fd;
     char	*line;
 
-//reading from file
     fd = open("prueba.txt", O_RDONLY);
 	if (fd == -1)
 	{
@@ -152,12 +151,6 @@ char	*get_next_line(int fd)
         free(line);
     }
     close(fd);
-//reading from stdini
-	fd = 0;
-	line = get_next_line(fd);
-	printf("%s", line);
-	free(line);
-	line = NULL;
 	system("leaks a.out");
-    return (0);*/
-}
+    return (0);
+}*/

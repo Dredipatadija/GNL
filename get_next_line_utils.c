@@ -6,7 +6,7 @@
 /*   By: arenilla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 17:24:36 by arenilla          #+#    #+#             */
-/*   Updated: 2024/05/15 09:51:39 by arenilla         ###   ########.fr       */
+/*   Updated: 2024/05/24 11:44:40 by arenilla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ char	*ft_strdup(const char *s1)
 	return (scpy);
 }
 
-char	*ft_strjoin(char *s1, char *s2)
+char	*ft_strjoin_gnl(char *s1, char *s2)
 {
 	size_t	i;
 	size_t	j;
@@ -96,10 +96,8 @@ char	*ft_strjoin(char *s1, char *s2)
 	if (!str)
 		return (0);
 	while (s1[i] != '\0')
-	{
-		str[i] = s1[i];
-		i++;
-	}
+		str[i++] = s1[j++];
+	j = 0;
 	while (s2[j] != '\0')
 	{
 		str[i + j] = s2[j];

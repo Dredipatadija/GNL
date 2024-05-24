@@ -60,7 +60,7 @@ static char	*ft_read(int fd, char *totalbuf)
 			return (NULL);
 		}
 		cpybuf[nread] = '\0';
-		totalbuf = ft_strjoin(totalbuf, cpybuf);
+		totalbuf = ft_strjoin_gnl(totalbuf, cpybuf);
 		if (ft_strchr(totalbuf, '\n'))
 			break ;
 	}
@@ -81,7 +81,7 @@ static char	*ft_newline(char *buffer)
 	line = ft_calloc(i + 1, sizeof(char));
 	line = ft_memmove(line, buffer, i);
 	if (buffer[i] != '\0' && buffer[i] == '\n')
-		line = ft_strjoin(line, "\n");
+		line = ft_strjoin_gnl(line, "\n");
 	return (line);
 }
 
