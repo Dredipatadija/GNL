@@ -115,7 +115,7 @@ char	*get_next_line(int fd)
 	static char	*buffer;
 	char		*oneline;
 
-	if (fd < 0 || BUFFER_SIZE < 1)
+	if (fd < 0 || BUFFER_SIZE < 1 || read(fd, 0, 0) == -1)
 		return (NULL);
 	if (!buffer)
 	{
