@@ -115,7 +115,7 @@ char	*get_next_line(int fd)
 	static char	*buffer[MAXFD];
 	char		*oneline;
 
-	if (fd < 0 || BUFFER_SIZE < 1 || fd >= MAXFD)
+	if (fd < 0 || BUFFER_SIZE < 1 || fd >= MAXFD || read(fd, 0, 0) == -1)
 		return (NULL);
 	if (!buffer[fd])
 	{
