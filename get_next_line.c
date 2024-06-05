@@ -80,6 +80,7 @@ static char	*ft_newline(char *buffer)
 		i++;
 	line = ft_calloc(i + 1, sizeof(char));
 	line = ft_memmove(line, buffer, i);
+	line[i + 1] = '\0';
 	if (buffer[i] != '\0' && buffer[i] == '\n')
 		line = ft_strjoin_gnl(line, "\n");
 	return (line);
@@ -106,6 +107,7 @@ static char	*ft_nextbuf(char *buffer)
 	}
 	len++;
 	nextb = ft_memmove(nextb, &buffer[len], (ft_strlen(buffer) - len));
+	nextb[len] = '\0';
 	free(buffer);
 	return (nextb);
 }
