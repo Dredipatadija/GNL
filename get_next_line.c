@@ -57,6 +57,7 @@ static char	*ft_read(int fd, char *totalbuf)
 		if (nread == -1)
 		{
 			free(cpybuf);
+			free(totalbuf);
 			return (NULL);
 		}
 		cpybuf[nread] = '\0';
@@ -80,7 +81,6 @@ static char	*ft_newline(char *buffer)
 		i++;
 	line = ft_calloc(i + 1, sizeof(char));
 	line = ft_memmove(line, buffer, i);
-	line[i + 1] = '\0';
 	if (buffer[i] != '\0' && buffer[i] == '\n')
 		line = ft_strjoin_gnl(line, "\n");
 	return (line);
@@ -107,7 +107,6 @@ static char	*ft_nextbuf(char *buffer)
 	}
 	len++;
 	nextb = ft_memmove(nextb, &buffer[len], (ft_strlen(buffer) - len));
-	nextb[len] = '\0';
 	free(buffer);
 	return (nextb);
 }
@@ -117,7 +116,7 @@ char	*get_next_line(int fd)
 	static char	*buffer;
 	char		*oneline;
 
-	if (BUFFER_SIZE < 1 || fd < 0 || read(fd, 0, 0) == -1)
+	if (BUFFER_SIZE < 1 || fd < 0)
 		return (NULL);
 	if (!buffer)
 	{

@@ -57,6 +57,7 @@ static char	*ft_read(int fd, char *totalbuf)
 		if (nread == -1)
 		{
 			free(cpybuf);
+			free(totalbuf);
 			return (NULL);
 		}
 		cpybuf[nread] = '\0';
@@ -115,7 +116,7 @@ char	*get_next_line(int fd)
 	static char	*buffer[MAXFD];
 	char		*oneline;
 
-	if (fd < 0 || BUFFER_SIZE < 1 || fd >= MAXFD || read(fd, 0, 0) == -1)
+	if (fd < 0 || BUFFER_SIZE < 1 || fd >= MAXFD)
 		return (NULL);
 	if (!buffer[fd])
 	{
