@@ -11,9 +11,9 @@
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
-//#include <stdio.h>
-//#include <fcntl.h>
-//#include <stdlib.h>
+#include <stdio.h>
+#include <fcntl.h>
+#include <stdlib.h>
 
 static void	*ft_memmove(void *dst, const void *src, size_t len)
 {
@@ -142,7 +142,7 @@ char	*get_next_line(int fd)
     char	*file3;
 
 //reading some fd
-    fd1 = 0;//open("prueba.txt", O_RDONLY);
+    fd1 = open("prueba.txt", O_RDONLY);
     fd2 = open("prueba2.txt", O_RDONLY);
     fd3 = open("prueba3.txt", O_RDONLY);
 	if (fd1 == -1 || fd2 == -1 || fd3 == -1)
